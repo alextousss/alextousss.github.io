@@ -1,45 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
     
     <head>
         <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="/css/style.css" />
 
-        <meta name="description" content="
-Here's how to accept crypto payments on your website with Coinbase Commerce.
-"/>
-        <title>
-Integrate Coinbase Commerce with Django
- - Alex Toussaint</title>
-    
-    
-    <style>
-        h1, h2, h3, h4, h5, h6 {
-            margin-bottom: 1rem; !important 
-        }
-    </style>
-    
+        <meta
+            name="description"
+            content=" Here's how to accept crypto payments on your website with Coinbase Commerce. "
+        />
+        <title> Integrate Coinbase Commerce with Django  - Alex Toussaint</title>
+
+        <style>
+            h1, h2, h3, h4, h5, h6 {
+                margin-bottom: 1rem; !important
+            }
+            .nopadding {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        </style>
     </head>
     
-    <body >
-        <div class="container-fluid mt-3"> 
-            <div class="row">
-                <div class="col-sm-10 order-12 order-sm-1">
-                    <div class="container">
-                        <h5 class="mt-2">Alex Toussaint</h5>
-                        
+    <body>
+        <div class="row no-gutters">
+            <div class="col-sm-10 order-12 order-sm-1">
+                <div class="container">
+                    <h5 class="mt-3">Alex Toussaint</h5>
+                </div>
+                
 
 <style>
-    p, h1, h2, h3, h4, h5, h6 {
-        max-width: 53ch;
-    }   
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+    }
 </style>
-<div class="mt-5" style="max-width: 53ch;">
-    <p>EDIT: This post was originally posted on Medium, but I decided to remove it because of Medium's predatory practices.
+<div class="container">
+    <div class="row no-gutters">
+        <div class="mt-5 col-sm-7 mx-auto post" style="">
+            <p>EDIT: This post was originally posted on Medium, but I decided to remove it because of Medium's predatory practices.
 I fixed a few typos at the same time.</p>
 <h2>Integrate Coinbase Commerce with Django</h2>
 <p>I’m quickly going to show you how to integrate Coinbase Commerce with Django.</p>
@@ -55,9 +72,7 @@ I fixed a few typos at the same time.</p>
 </ul>
 <h3>What is the typical Coinbase Commerce paying process?</h3>
 <p><strong>1 — Your client is on your website, and clicks the “pay with crypto” button.</strong>
-<div class="scroll-horizon">
-<img alt="You know … That little button that feels so good" src="../images/paywithcryptobutton.png" />
-</div></p>
+<img alt="You know … That little button that feels so good" src="../images/paywithcryptobutton.png" /></p>
 <p><em>You know … That little button that feels so good</em></p>
 <p>Congratulations! You’re about to gain money!</p>
 <p>Bam! The user clicks and a nice modal is showed to him (Which you didn’t make, otherwise it wouldn’t be that beautiful you little backend developer)</p>
@@ -82,24 +97,24 @@ I fixed a few typos at the same time.</p>
 <p><strong>3 — Your client claims his product with a form on your website</strong></p>
 <p>You know how to handle a form with Django, otherwise you have nothing to do here.</p>
 <p><img alt="My button looks like that" src="images/myconfirmpaymentbutton.png" /> </p>
-<p><em>My button looks like that</em>
+<p><em>My button looks like that</em></p>
 <div class="scroll-horizon">
     <img style="max-width: 600px" src="images/myconfirmationform.png"></img>
 </div>
-<em>And gets you here</em></p>
+<p><em>And gets you here</em></p>
 <p>Then, the server credits the product to the client. You know how to do it.</p>
 <h3>How do we integrate with it on the backend ?</h3>
 <p><em>Here’s the million dollar question!</em></p>
 <p><strong>1 — Receiving the webhook</strong></p>
-<p>First, we need a model to save payments. 
-<script src="https://gist.github.com/alextousss/5b887704f71ff967927b817e3651f1be.js"></script> </p>
+<p>First, we need a model to save payments. </p>
+<script src="https://gist.github.com/alextousss/5b887704f71ff967927b817e3651f1be.js"></script>
+
 <p>Then, we’re going to setup that webhook. Let’s tap into the urls first:</p>
 <script src="https://gist.github.com/alextousss/181fc6a5f5e32d75fbee431ec569fcd9.js"></script>
 
 <p>And here’s for the godly webhook!
 I’m assuming you have a COINBASE_SECRET field in your settings.py file.</p>
 <script src="https://gist.github.com/alextousss/1461fadb068e8b25eb121e1b00bf1a67.js"></script>
-
 <p>Here, we're getting the request and authenticating it with the secret key to check that it isn’t some evil hacker trying to steal your product.</p>
 <p><strong>2 — The client form</strong></p>
 <p>I’m going to let you do it yourself from here. The tricky part is the coinbase webhook and its authentication, the rest is quite straightforward.
@@ -120,24 +135,24 @@ We’re going to get rid of bank monopolies and get rid of those stupid fees. Ju
         max-width: 500%;
     }
     .scroll-horizon {
-          white-space: nowrap;
-        overflow-x: scroll; 
+        white-space: nowrap;
+        overflow-x: auto; 
         overflow-y: hidden; 
     }
     .scroll-horizon img {
             display: inline-block;
     }
 </style>
+        </div>
+    </div>
 </div>
 
-                    </div>
-                </div>
-                <div class="col-sm-2 order-1 order-sm-12">
-                    <a href="about.html">About</a><br/>
-<a href="projects.html">Projects</a><br/>
-<a href="thoughts.html">Thoughts</a><br/>
-<div class="mb-4"></div>
-                </div>
+            </div>
+            <div class="col-sm-2 order-1 order-sm-12" style="padding: 15px;">
+                <a href="/">About</a><br/>
+<a href="/projects.html">Projects</a><br/>
+<a href="/blog.html">Blog</a><br/>
+
             </div>
         </div>
         
@@ -154,16 +169,39 @@ We’re going to get rid of bank monopolies and get rid of those stupid fees. Ju
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
   })();
-</script>
-        
+</script> 
 <script>
-    (function(m,a,i,l,e,r){ m['MailerLiteObject']=e;function f(){
-        var c={ a:arguments,q:[]};var r=this.push(c);return "number"!=typeof r?r:f.bind(c.q);}
-        f.q=f.q||[];m[e]=m[e]||f.bind(f.q);m[e].q=m[e].q||f.q;r=a.createElement(i);
-        var _=a.getElementsByTagName(i)[0];r.async=1;r.src=l+'?v'+(~~(new Date().getTime()/1000000));
-        _.parentNode.insertBefore(r,_);})(window, document, 'script', 'https://static.mailerlite.com/js/universal.js', 'ml');
+    (function (m, a, i, l, e, r) {
+        m["MailerLiteObject"] = e;
+        function f() {
+            var c = { a: arguments, q: [] };
+            var r = this.push(c);
+            return "number" != typeof r ? r : f.bind(c.q);
+        }
+        f.q = f.q || [];
+        m[e] = m[e] || f.bind(f.q);
+        m[e].q = m[e].q || f.q;
+        r = a.createElement(i);
+        var _ = a.getElementsByTagName(i)[0];
+        r.async = 1;
+        r.src = l + "?v" + ~~(new Date().getTime() / 1000000);
+        _.parentNode.insertBefore(r, _);
+    })(
+        window,
+        document,
+        "script",
+        "https://static.mailerlite.com/js/universal.js",
+        "ml"
+    );
 
-    var ml_account = ml('accounts', '1863036', 's5j5r0a3y7', 'load');
+    var ml_account = ml("accounts", "1863036", "s5j5r0a3y7", "load");
+</script>
+<script
+    type="text/javascript"
+    src="https://unpkg.com/medium-zoom@1.0.4/dist/medium-zoom.min.js"
+></script>
+<script type="text/javascript">
+    mediumZoom("img");
 </script>
 
     </body>
