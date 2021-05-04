@@ -179,22 +179,24 @@ When I started out, I didn't know anything about waves, barely knew how to use a
 -->
 
 <h3>Generating the emitter's signal</h3>
-<p>My transducers are directly driven by 25 shift registers. To drive a shift register, there are three pins: CLOCK, LATCH and DATA. To write a series of bits to a shift register, the algorithm is the following: 
- - Write the first bit on the DATA pin (+5V if you want the first pin of the shift register to be connected to ground, +0V otherwise)
- - Write HIGH on the CLOCK line
- - Write LOW on the CLOCK line
- - Set the second bit on the DATA pin
- - Clock HIGH
- - Clock LOW
- - 3rd bit
- - Clock HIGH
- - Clock LOW
- - etc... done 6 times
- - Write the 8th bit
- - Clock HIGH
- - Clock LOW
- - LATCH HIGH (this tells the shift register to change its output, sort of like a buffer swap in a video game.
- - LATCH LOW</p>
+<p>My transducers are directly driven by 25 shift registers. To drive a shift register, there are three pins: CLOCK, LATCH and DATA. To write a series of bits to a shift register, the algorithm is the following:</p>
+<ul>
+<li>Write the first bit on the DATA pin (+5V if you want the first pin of the shift register to be connected to ground, +0V otherwise)</li>
+<li>Write HIGH on the CLOCK line</li>
+<li>Write LOW on the CLOCK line</li>
+<li>Set the second bit on the DATA pin</li>
+<li>Clock HIGH</li>
+<li>Clock LOW</li>
+<li>3rd bit</li>
+<li>Clock HIGH</li>
+<li>Clock LOW</li>
+<li>etc... done 6 times</li>
+<li>Write the 8th bit</li>
+<li>Clock HIGH</li>
+<li>Clock LOW</li>
+<li>LATCH HIGH (this tells the shift register to change its output, sort of like a buffer swap in a video game.</li>
+<li>LATCH LOW</li>
+</ul>
 <p>Therefore to change the values in a shift register, I need <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>8</mn><mo>∗</mo><mn>3</mn><mo>+</mo><mn>2</mn><mo>=</mo><mn>26</mn></mrow><annotation encoding="application/x-tex">8*3+2=26</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">26</span></span></span></span>  writes on pins.
 My transducers work at 40khz, but I'd like to have 40 positions for my beam, which means an update rate of  <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>40</mn><mi>k</mi><mi>h</mi><mi>z</mi><mo>∗</mo><mn>40</mn><mo>=</mo><mn>1.6</mn><mi>M</mi><mi>h</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">40khz*40=1.6Mhz</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">40</span><span class="mord mathnormal">kh</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">40</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">1.6</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal">h</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span>. I need 21 Teensy writes for 1 shift register write, which is <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1.6</mn><mi>M</mi><mi>h</mi><mi>z</mi><mo>∗</mo><mn>21</mn><mo>=</mo><mn>33.6</mn><mi>M</mi><mi>h</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">1.6Mhz*21=33.6Mhz</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">1.6</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal">h</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">21</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">33.6</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal">h</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span> 
 There are 25 shift registers, so I need to update my output pins at <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>33.6</mn><mi>M</mi><mi>h</mi><mi>z</mi><mo>∗</mo><mn>25</mn><mo>=</mo><mn>840</mn><mi>M</mi><mi>h</mi><mi>z</mi></mrow><annotation encoding="application/x-tex">33.6Mhz*25=840Mhz</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">33.6</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal">h</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">25</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">840</span><span class="mord mathnormal" style="margin-right:0.10903em;">M</span><span class="mord mathnormal">h</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span>.</p>
