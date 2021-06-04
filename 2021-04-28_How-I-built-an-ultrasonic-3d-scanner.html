@@ -20,7 +20,7 @@
 
         <meta
             name="description"
-            content="  "
+            content=" Here's how I built an ultrasonic 3d scanner that works in the air, using off-the-shelf components. "
         />
         <title> How I built an ultrasonic 3d scanner  - Alex Toussaint</title>
 
@@ -57,8 +57,8 @@
     <div class="row no-gutters">
         <div class="mt-5 col-sm-7 mx-auto post" style="">
             <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css"
-  integrity="sha384-t5CR+zwDAROtph0PXGte6ia8heboACF9R5l/DiY+WZ3P2lxNgvJkQk5n7GPvLMYw"
+  href="https://cdn.jsdelivr.net/npm/katex@0.13.6/dist/katex.min.css"
+  integrity="sha384-81hI3kRV62VEhJBKVz7JsJzaUcP5Ty/E1FFdkLh6yz8uWthgdssaWCD1j8R1r2iU"
   crossorigin="anonymous" />
 
 <style type="text/css">
@@ -71,6 +71,7 @@
 </style>
 <h2>How I built an ultrasonic 3d scanner</h2>
 <p>Here's how I built the first ultrasonic 3d scanner in the world that works in the air, using off-the-shelf components (&lt; $100). <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> </p>
+<p><em>[I was wrong. I got an email from the founder of the research group at 3dsonar.eu and it seems like I'm second :/]</em></p>
 <p>Four years ago, I was 15 and wanted to build an autonomous drone to deliver me Coke cans. For that, I needed an accurate 3D map of the surroundings of my drone to avoid walls and objects in its way. Lidars were too expensive and SLAM<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> didn't work well. There were ultrasonic sensors, but they could only give out the distance to the nearest object in a 40° cone, which wasn't enough for me. </p>
 <p>But, if humans can locate the exact direction of a sound, why can't an ultrasonic sensor do it too? That would allow me to scan in 3d. </p>
 <!--![HC-SR04 image](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.2TK1Z7Vcyn4dfeVLNaOAHAHaHa%26pid%3DApi&f=1)-->
@@ -241,6 +242,11 @@ After launching gnuplot, I got my first 3D Images
 <h3>Get an ultrasonic scanner for yourself</h3>
 <p>I've published all code and schematics <a href="https://github.com/alextousss/3d_ultrasonic_scanner">on github</a>. If you need any help building the device, email me or open a github issue and I'll write documentation. </p>
 <p>My device can help with experiments around radars, beamforming and phased arrays. If you want me to send you one, email me! </p>
+<h3>Links</h3>
+<ul>
+<li><a href="https://news.ycombinator.com/item?id=27090795">HackerNews discussion</a></li>
+<li><a href="https://hackaday.com/2021/05/15/a-phased-array-ultrasonic-3d-scanner-from-scratch/">Hackaday.com article</a></li>
+</ul>
 <div class="footnote">
 <hr />
 <ol>
