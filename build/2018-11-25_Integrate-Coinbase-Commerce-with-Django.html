@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="/css/style.css" />
+
+        <meta
+            name="description"
+            content=" Here's how to accept crypto payments on your website with Coinbase Commerce. "
+        />
+        <title> Integrate Coinbase Commerce with Django  - Alex Toussaint</title>
+
+        <style>
+            h1, h2, h3, h4, h5, h6 {
+                margin-bottom: 1rem; !important
+            }
+            .nopadding {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="row no-gutters">
+            <div class="col-sm-10 order-12 order-sm-1">
+                <div class="container">
+                    <h5 class="mt-3">Alex Toussaint</h5>
+                </div>
+                
+
+<style>
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+    }
+</style>
+<div class="container">
+    <div class="row no-gutters">
+        <div class="mt-5 col-sm-7 mx-auto post" style="">
+            <p>EDIT: This post was originally posted on Medium, but I decided to remove it because of Medium's predatory practices.
+I fixed a few typos at the same time.</p>
+<h2>Integrate Coinbase Commerce with Django</h2>
+<p>I’m quickly going to show you how to integrate Coinbase Commerce with Django.</p>
+<p>I will assume you have a basic knowledge of Django. I won’t cover any front-end thing.</p>
+<p><strong>We’ll do it in two parts :</strong></p>
+<ul>
+<li>
+<p>What is the typical Coinbase Commerce paying process?</p>
+</li>
+<li>
+<p>How do we integrate with it on the backend?</p>
+</li>
+</ul>
+<h3>What is the typical Coinbase Commerce paying process?</h3>
+<p><strong>1 — Your client is on your website, and clicks the “pay with crypto” button.</strong>
+<img alt="button to pay with crypto" src="../images/paywithcryptobutton.png" /></p>
+<p>Congratulations! You’re about to gain money!</p>
+<p>The user clicks and a dialog is showed to him (Which you didn’t make, otherwise it wouldn’t be that beautiful)</p>
+<p><img alt="Paying with BTC on Coinbase Commerce" src="images/payingwithbtconcoibase.png" /></p>
+<p><em>Paying with BTC on Coinbase Commerce</em></p>
+<p>After giving some optional infos (you can configure them on your Coinbase Commerce Account) your user will be prompted with this, to tell him to pay your beloved product.</p>
+<p>He then pays it, and gets on his email address a code, his order code.</p>
+<p>He then needs to send you his code so that you can be sure that he’s a legit customer.</p>
+<p>But because no one wants to pay someone just to confirm orders, we’re going to automate all of that with a webhook and a form.</p>
+<p><strong>2 — Coinbase Commerce notifies you that you’re getting richer by sending you a webhook POST request.</strong></p>
+<p>You’ll need to configure it in the Coinbase Commerce UI, and we’re going to learn how to create it in the present tutorial.</p>
+<p>This request contains some very interesting things:</p>
+<ul>
+<li>
+<p>An order ID, the same that has been communicated by mail to your customer, that you’ll need to save on your database</p>
+</li>
+<li>
+<p>The amount of money you’ve just gained</p>
+</li>
+</ul>
+<p>We’re going to store it.</p>
+<p><strong>3 — Your client claims his product with a form on your website</strong></p>
+<p>I'll assume you already know how to handle a form with Django.</p>
+<p><img alt="My button looks like that" src="images/myconfirmpaymentbutton.png" /> </p>
+<p><em>My button looks like that</em></p>
+<div class="scroll-horizon">
+    <img style="max-width: 600px" src="images/myconfirmationform.png"></img>
+</div>
+<p><em>And gets you here</em></p>
+<p>Then, the server credits the product to the client. You know how to do it.</p>
+<h3>How do we integrate with it on the backend ?</h3>
+<p><em>Here’s the million dollar question!</em></p>
+<p><strong>1 — Receiving the webhook</strong></p>
+<p>First, we need a model to save payments. </p>
+<script src="https://gist.github.com/alextousss/5b887704f71ff967927b817e3651f1be.js"></script>
+
+<p>Then, we’re going to setup that webhook. Let’s tap into the urls first:</p>
+<script src="https://gist.github.com/alextousss/181fc6a5f5e32d75fbee431ec569fcd9.js"></script>
+
+<p>And here’s for the webhook.
+I’m assuming you have a COINBASE_SECRET field in your settings.py file.</p>
+<script src="https://gist.github.com/alextousss/1461fadb068e8b25eb121e1b00bf1a67.js"></script>
+<p>Here, we're getting the request and authenticating it with the secret key to check that it isn’t some evil hacker trying to steal your product.</p>
+<p><strong>2 — The client form</strong></p>
+<p>I’m going to let you do it yourself from here. The tricky part is the coinbase webhook and its authentication, the rest is quite straightforward.
+You just need to get the CoinbaseOrder by his order_id and send the product to the client if the value of his order is the same than the one of the product the client claims.</p>
+<h3>Wrapping it up:</h3>
+<p>Last thing you need to do, register the webhook into the Coinbase Commerce UI.
+Only subscribe to “Confirmed charge” events, you don’t want to give your product to people that fail to pay it.</p>
+<h3>The big conclusion</h3>
+<p>All of that was brought to you by Alex Toussaint, I’m a developer and all those snippets are coming from my project : <a href="https://kaktana.com">Kaktana</a></p>
+<p>It’s a 100% user-configurable, technical analysis and cloud-based trading bot that lets you invest in cryptocurrencies safer than ever. You’re using basic logic conditions to create your strategies that the bot will apply to the letter, ensuring you huge endless profits. Go check it out!</p>
+<h3>The (2) big conclusion</h3>
+<p>Cryptocurrency is the future! 
+We’re going to get rid of bank monopolies and get rid of those stupid fees. Just enjoy getting paid so easily!</p>
+<p>Alex Toussaint</p>
+<style>
+    .gist {
+        max-width: 500%;
+    }
+    .scroll-horizon {
+        white-space: nowrap;
+        overflow-x: auto; 
+        overflow-y: hidden; 
+    }
+    .scroll-horizon img {
+            display: inline-block;
+    }
+</style>
+            <div
+                class="ml-form-embed"
+                data-account="1863036:s5j5r0a3y7"
+                data-form="1751676:g2b8d7"
+            ></div>
+        </div>
+    </div>
+</div>
+
+            </div>
+            <div class="col-sm-2 order-1 order-sm-12" style="padding: 15px;">
+                <a href="/">About</a><br/>
+<a href="/projects.html">Projects</a><br/>
+<a href="/blog.html">Blog</a><br/>
+
+            </div>
+        </div>
+        
+
+<script type="text/javascript">
+  var _paq = window._paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//stats.kaktana.com/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '3']);
+    _paq.push(['enableHeartBeatTimer', 5]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script> 
+<script>
+    (function (m, a, i, l, e, r) {
+        m["MailerLiteObject"] = e;
+        function f() {
+            var c = { a: arguments, q: [] };
+            var r = this.push(c);
+            return "number" != typeof r ? r : f.bind(c.q);
+        }
+        f.q = f.q || [];
+        m[e] = m[e] || f.bind(f.q);
+        m[e].q = m[e].q || f.q;
+        r = a.createElement(i);
+        var _ = a.getElementsByTagName(i)[0];
+        r.async = 1;
+        r.src = l + "?v" + ~~(new Date().getTime() / 1000000);
+        _.parentNode.insertBefore(r, _);
+    })(
+        window,
+        document,
+        "script",
+        "https://static.mailerlite.com/js/universal.js",
+        "ml"
+    );
+
+    var ml_account = ml("accounts", "1863036", "s5j5r0a3y7", "load");
+</script>
+<script
+    type="text/javascript"
+    src="https://unpkg.com/medium-zoom@1.0.4/dist/medium-zoom.min.js"
+></script>
+<script type="text/javascript">
+    mediumZoom("img");
+</script>
+
+    </body>
+</html>
