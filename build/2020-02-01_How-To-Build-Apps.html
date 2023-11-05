@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="/css/style.css" />
+
+        <meta
+            name="description"
+            content=" Recently, I started meta-analyzing how I build apps. I thought of best practices to ensure performance, user experience and quick development. Here's what I found out. "
+        />
+        <title> How To Build Apps Pragmatically  - Alex Toussaint</title>
+
+        <style>
+            h1, h2, h3, h4, h5, h6 {
+                margin-bottom: 1rem; !important
+            }
+            .nopadding {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <div class="row no-gutters">
+            <div class="col-sm-10 order-12 order-sm-1">
+                <div class="container">
+                    <h5 class="mt-3">Alex Toussaint</h5>
+                </div>
+                
+
+<style>
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+    }
+</style>
+<div class="container">
+    <div class="row no-gutters">
+        <div class="mt-5 col-sm-7 mx-auto post" style="">
+            <p>Recently, I started meta-analyzing how I build apps. I thought of best practices to ensure performance, user experience and quick development.
+Here's what I found out:</p>
+<h2>Use Popular Tools</h2>
+<p>This one's controversial. 
+But, you can't afford to waste time googling and opening Github issues. 
+That's the reason why I use React and Django: both are tools with communities of millions and I never face problems with the language/framework itself: someone has done it for me before. </p>
+<h2>Old Doesn't Mean Gold</h2>
+<p>Try to build a complex server-rendered web app with PHP because "It's more inclusive" or "it has better frontend performance". See you in 2030.</p>
+<h2>Use the Right Tool</h2>
+<p>Chose a tool because it's the right one - not because it's cool, users don't care whether the tech stack's cool.</p>
+<p>Blogs using Javascript frameworks, I'm looking at you ;-)</p>
+<p>If you're doing an app for developers, they'll prefer a CLI to a web app anyway.</p>
+<h2>Don't Duplicate Code</h2>
+<p>That helps to shrink complexity.
+Try to regroup code that is always doing the same thing into a library with a clear interface.
+For instance, all my web apps use the same extended fetching library that implements JWT authentication and pops up a warning whenever the backend receives an error code.</p>
+<h2>The Server and the Client Should not Mutate the Same Fields</h2>
+<p>It avoids errors from managing locks and synchronization mechanisms. 
+If a background job can change some fields, note them as such and send them as read-only to the client. 
+The client should only change "requested modifications" fields so that the background job does all the mutations.</p>
+<h2>Use Watcher Views</h2>
+<p>These are views that tell you when a model changed last. Watcher Views are light enough so that you can continuously call them to know whether you should fetch recent data. 
+They're far less complex than WebSockets and avoid the performance costs of continuously polling unchanged data from the API.</p>
+<h2>Prefer Exposed to Hidden Complexity</h2>
+<p>Some solutions (e.g. serverless) promise you a short-term boost of productivity by not having to manage certain things. 
+If you know that you will never have to manage these things, great! 
+But if you know that you will need to get your hands dirty one day anyway, prefer exposed complexity from day one over hidden complexity that will force you to re-write everything when it appears.</p>
+<!--### Shrink Complexity
+Obsess to minimize complexity: it's a balance to find. 
+
+
+You need to think of the future. To design your app's data model so that you can support new features without changing it. 
+It's not about adding more fields to your models, that would be increasing complexity: it's about adding more general and powerful fields. 
+-->
+<h2>Never Fit a Square Peg in a Round Hole</h2>
+<p>At Kaktana, we use nested Django models to represent a bot's trigger conditions. 
+That's stupid! There's no point to storing function calls in a relational database: it is inefficient and complex. Whenever I want to add a microservice that needs to treat that state, I have to spend hours just building the JSON serializer.</p>
+<p>When evaluating a solution, think of the tradeoffs you're making: are you adding complexity to get features you don't need?
+In our case, we didn't think about it, and just implemented our conditions in the same way we stored products and their relations to merchands: in a relational database. 
+It forced us to statically encode in the database model every needed combination of instruction, although what we needed was real programming, which is inherently dynamic.
+We ended up with a very limiting set of instructions for our users that was hard to extend when needed.  </p>
+<p>We should have made a Domain Specific Language (DSL) instead of our conditions. To serialize logic, we would just need to represent the AST in a lisp-like syntax. 
+To interpret it on a new microservice, just create a tokenizer (10 lines of Python) and an AST interpreter.
+We wouldn't have had to do anything to support more complex bots, as they would have just been a different code for our DSL.</p>
+<p>This comes with experience, as you need to have seen a lot of ways of doing things to know the right one for your specific problem.<br />
+Get out of your comfort zone and learn lisp! ;-)</p>
+            <div
+                class="ml-form-embed"
+                data-account="1863036:s5j5r0a3y7"
+                data-form="1751676:g2b8d7"
+            ></div>
+        </div>
+    </div>
+</div>
+
+            </div>
+            <div class="col-sm-2 order-1 order-sm-12" style="padding: 15px;">
+                <a href="/">About</a><br/>
+<a href="/projects.html">Projects</a><br/>
+<a href="/blog.html">Blog</a><br/>
+
+            </div>
+        </div>
+        
+
+<script type="text/javascript">
+  var _paq = window._paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//stats.kaktana.com/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '3']);
+    _paq.push(['enableHeartBeatTimer', 5]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script> 
+<script>
+    (function (m, a, i, l, e, r) {
+        m["MailerLiteObject"] = e;
+        function f() {
+            var c = { a: arguments, q: [] };
+            var r = this.push(c);
+            return "number" != typeof r ? r : f.bind(c.q);
+        }
+        f.q = f.q || [];
+        m[e] = m[e] || f.bind(f.q);
+        m[e].q = m[e].q || f.q;
+        r = a.createElement(i);
+        var _ = a.getElementsByTagName(i)[0];
+        r.async = 1;
+        r.src = l + "?v" + ~~(new Date().getTime() / 1000000);
+        _.parentNode.insertBefore(r, _);
+    })(
+        window,
+        document,
+        "script",
+        "https://static.mailerlite.com/js/universal.js",
+        "ml"
+    );
+
+    var ml_account = ml("accounts", "1863036", "s5j5r0a3y7", "load");
+</script>
+<script
+    type="text/javascript"
+    src="https://unpkg.com/medium-zoom@1.0.4/dist/medium-zoom.min.js"
+></script>
+<script type="text/javascript">
+    mediumZoom("img");
+</script>
+
+    </body>
+</html>
